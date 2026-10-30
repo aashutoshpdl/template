@@ -136,7 +136,7 @@ CRITICAL INSTRUCTIONS:
 1. If existing files are provided, BUILD DIRECTLY ON TOP OF THEM. Do not break existing features; integrate the new requirements cleanly.
 2. If this is net-new code, provide the complete, functional application.
 3. Always include or update `build.sh` to package/build the outputs into `./dist`.
-   - For Android projects: The CI workflow provides Java 17 and Gradle 8.5. In `build.sh`, run `gradle clean assembleDebug` or use Gradle 8.5 with AGP 8.2+.
+   - For Android projects: The CI workflow provides Java 17 and Gradle 8.5. In `build.sh`, run `gradle clean assembleDebug` or use Gradle 8.5 with AGP 8.2+. For 2D games with SurfaceView, use `surfaceHolder.lockCanvas()` with `surfaceHolder.surface.isValid` checks (avoid `lockHardwareCanvas` which crashes on Samsung/Mali devices).
 4. Output MUST be strictly valid JSON mapping relative file paths to their full string contents:
 {
   "index.html": "<full updated code>",
