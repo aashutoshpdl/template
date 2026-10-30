@@ -37,8 +37,12 @@ print(f"🚀 Processing Issue #{issue_num}: {issue_title} using model {model_nam
 # ---------------------------------------------------------------------------
 print("🔍 Scanning existing codebase...")
 existing_files = {}
-ignored_dirs = {".git", ".github", "node_modules", "dist", "build", ".venv"}
-allowed_extensions = {".html", ".css", ".js", ".jsx", ".ts", ".tsx", ".json", ".rs", ".py", ".go", ".sh", ".md"}
+ignored_dirs = {".git", ".github", "node_modules", "dist", "build", ".venv", ".gradle"}
+allowed_extensions = {
+    ".html", ".css", ".js", ".jsx", ".ts", ".tsx", ".json",
+    ".rs", ".py", ".go", ".sh", ".md",
+    ".kt", ".java", ".gradle", ".kts", ".xml", ".properties"
+}
 
 for root, dirs, files in os.walk("."):
     dirs[:] = [d for d in dirs if d not in ignored_dirs]
@@ -132,6 +136,7 @@ CRITICAL INSTRUCTIONS:
 1. If existing files are provided, BUILD DIRECTLY ON TOP OF THEM. Do not break existing features; integrate the new requirements cleanly.
 2. If this is net-new code, provide the complete, functional application.
 3. Always include or update `build.sh` to package/build the outputs into `./dist`.
+   - For Android projects: The CI workflow provides Java 17 and Gradle 8.5. In `build.sh`, run `gradle clean assembleDebug` or use Gradle 8.5 with AGP 8.2+.
 4. Output MUST be strictly valid JSON mapping relative file paths to their full string contents:
 {
   "index.html": "<full updated code>",
